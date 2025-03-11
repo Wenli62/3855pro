@@ -3,12 +3,10 @@ from sqlalchemy.orm import sessionmaker
 import yaml
 import os
 
-user = os.getenv("MYSQL_USER")
-
 with open('/config/storage_config.prod.yml', 'r') as f:
     app_config = yaml.safe_load(f.read())
 
-user = os.getenv("MYSQL_USER")
+user = 'root'
 password = os.getenv("MYSQL_ROOT_PASSWORD")
 hostname = app_config['datastore']['hostname']
 port = app_config['datastore']['port']

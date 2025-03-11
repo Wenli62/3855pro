@@ -34,17 +34,16 @@ services:
   mysql_db:
     image: mysql
     restart: always
-
+    env_file: "./storage_prod.env"
     ports: []
     volumes:
       - ./data/database:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u$${MYSQL_USER}", "-p$${MYSQL_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$${MYSQL_PASSWORD}"]
       interval: 10s
       timeout: 5s
       retries: 3
-
-
+      
   processing:
     environment:
       - SERVICE_NAME=processing
