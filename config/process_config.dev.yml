@@ -1,0 +1,10 @@
+version: 1
+datastore:
+  filename: /data/<service_name>/<service_name>.json
+scheduler:
+  interval: 5
+eventstores:
+  online_orders:
+    url: http://storage:8090/online-orders
+  store_sales:
+    url: http://storage:8090/store-sales

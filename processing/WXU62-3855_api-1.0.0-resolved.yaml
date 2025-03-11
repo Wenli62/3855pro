@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  description: This API provides event stats
+  version: "1.0.0"
+  title: Stats API
+  
+paths:
+  /stats:
+    get:
+      summary: Get all transactions
+      operationId: app.get_stats
+      responses:
+        '200':
+          description: Successfully returned a list of sale records
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/ReadingStats'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string  
+components:
+  schemas:
+    ReadingStats:
+      type: object
+      required:
+        - last_updated
+        - num_online_orders
+        - max_online_order
+        - num_store_sales
+        - max_store_sale
+      properties:
+        last_updated:
+          type: string
+          format: date-time
+          example: '2025-01-08T09:12:33.001000'
+        num_online_orders:
+          type: integer
+          example: 500000
+        max_online_order:
+          type: number
+          format: float
+          example: 200.50
+        num_store_sales:
+          type: integer
+          example: 500000
+        max_store_sale:
+          type: number
+          format: float
+          example: 100.00
+
+          

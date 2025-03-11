@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 3855_api
+  description: ''
+paths:
+  /online-orders:
+    # post:
+    #   summary: online sale transactions
+    #   tags: []
+    #   operationId: app.online_orders
+    #   requestBody:
+    #     content:
+    #       application/json:
+    #         schema:
+    #           $ref: '#/components/schemas/online'
+    #   responses:
+    #     '201':
+    #       description: Created
+    #     '400':
+    #       description: Bad Request
+    get:
+      summary: Get online-order sale transactions
+      operationId: app.get_online_orders
+      parameters:
+        - name: start_timestamp
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: '2025-01-08T09:12:33.001Z'
+        - name: end_timestamp
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: '2025-01-08T09:12:33.001Z'
+      responses:
+        '200':
+          description: Successfully returned a list of online-order sale transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/online'
+        '400':
+          description: Bad Request
+  /store-sales:
+    # post:
+    #   summary: in-store sale transactions
+    #   tags: []
+    #   operationId: app.store_sales
+    #   requestBody:
+    #     content:
+    #       application/json:
+    #         schema:
+    #           $ref: '#/components/schemas/instore'
+    #   responses:
+    #     '201':
+    #       description: Created
+    #     '400':
+    #       description: Bad Request
+    get:
+      summary: get in-store sale transactions
+      tags: []
+      operationId: app.get_store_sales
+      parameters:
+        - name: start_timestamp
+          required: true
+          in: query
+          schema:
+            type: string
+            format: date-time
+            example: '2025-01-08T09:12:33.001Z'
+        - name: end_timestamp
+          required: true
+          in: query
+          schema:
+            type: string
+            format: date-time
+            example: '2025-01-08T09:12:33.001Z'
+      responses:
+        '200':
+          description: Successfully returned a list of in-store sale transactions history
+          content:
+            application/json:
+              schema:
+               type: array
+               items:
+                $ref: '#/components/schemas/instore'
+        '400':
+          description: Bad Request    
+components:
+  schemas:
+    online:
+      type: object
+      required:
+        - cid
+        - order_amount
+        - shipping_address
+        - order_time
+        - trace_id
+      properties:
+        cid:
+          type: string
+          example: 'C1234'
+        order_amount:
+          type: number
+          format: float
+          example: 100.00
+        shipping_address:
+          type: string
+          example: '123 ABC St, Vancouer, CA'
+        order_time:
+          type: string
+          format: date-time
+          example: '2025-01-08T09:12:33.001Z'
+        trace_id:
+          type: number
+          example: 1674235285973157000
+          
+    instore:
+      type: object
+      required:
+        - sid
+        - sale_amount
+        - payment_method
+        - sale_time
+        - trace_id
+      properties:
+        sid:
+          type: string
+          example: van01
+        sale_amount:
+          type: number
+          format: float
+          example: 33.50
+        payment_method:
+          type: string
+          example: Cash
+        sale_time:
+          type: string
+          example: '2025-01-08T08:12:33.001Z'
+          format: date-time
+        trace_id:
+          #num
+          type: number
+          example: 1674235285973157000
+          

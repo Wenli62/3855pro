@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 3855_api
+  description: ''
+paths:
+  /online-orders:
+    get:
+      summary: Get
+      operationId: app.get_online_orders
+      parameters:
+        - name: index
+          in: query
+          description: Gets the online orders at the index in the event store
+          required: true
+          schema:
+            type: integer
+            example: 100
+        
+      responses:
+        '200':
+          description: Successfully returned an online order event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/online'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /store-sales:
+    get:
+      summary: get other event
+      tags: []
+      operationId: app.get_store_sales
+      parameters:
+        - name: index
+          required: true
+          in: query
+          description: Gets the store sales at the index in the event store
+          schema:
+            type: integer
+            example: 100
+      responses:
+        '200':
+          description: Successfully get a store sales
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/instore'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string  
+  /stats: 
+    get:
+      operationId: app.get_stats
+      responses:
+        '200':
+          description: Successfully return stats
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/stats'
+
+components:
+  schemas:
+    online:
+      type: object
+      required:
+        - cid
+        - order_amount
+        - shipping_address
+        - order_time
+        - trace_id
+      properties:
+        cid:
+          type: string
+          example: 'C1234'
+        order_amount:
+          type: number
+          format: float
+          example: 100.00
+        shipping_address:
+          type: string
+          example: '123 ABC St, Vancouer, CA'
+        order_time:
+          type: string
+          format: date-time
+          example: '2025-01-08T09:12:33.001Z'
+        trace_id:
+          type: number
+          example: 1674235285973157000
+          
+    instore:
+      type: object
+      required:
+        - sid
+        - sale_amount
+        - payment_method
+        - sale_time
+        - trace_id
+      properties:
+        sid:
+          type: string
+          example: van01
+        sale_amount:
+          type: number
+          format: float
+          example: 33.50
+        payment_method:
+          type: string
+          example: Cash
+        sale_time:
+          type: string
+          example: '2025-01-08T08:12:33.001Z'
+          format: date-time
+        trace_id:
+          #num
+          type: number
+          example: 1674235285973157000
+    stats:
+      required:
+        - num_online_orders
+        - num_store_sales
+      properties:
+        num_online_orders:
+          type: integer
+          example: 100
+        num_store_sales:
+          type: integer
+          example: 100
+
+          

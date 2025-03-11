@@ -1,0 +1,10 @@
+version: 1
+events:
+  online_orders:
+    url: http://storage:8090/online-orders
+  store_sales:
+    url: http://storage:8090/store-sales
+kafka:
+  hostname: kafka
+  port: 9092
+  topic: events

@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 3855_api
+  description: ''
+paths:
+  /online-orders:
+    post:
+      summary: online sale transactions
+      tags: []
+      operationId: app.online_orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/online'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+    parameters: []
+  /store-sales:
+    post:
+      summary: in-store sale transactions
+      tags: []
+      operationId: app.store_sales
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/instore'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+    parameters: []
+components:
+  schemas:
+    online:
+      type: object
+      required:
+        - cid
+        - order_amount
+        - shipping_address
+        - order_time
+      properties:
+        cid:
+          type: string
+          example: 'C1234'
+        order_amount:
+          type: number
+          format: float
+          example: 100.00
+        shipping_address:
+          type: string
+          example: '123 ABC St, Vancouer, CA'
+        order_time:
+          type: string
+          format: date-time
+          example: '2025-01-08T09:12:33.001Z'
+    instore:
+      type: object
+      required:
+        - sid
+        - sale_amount
+        - payment_method
+        - sale_time
+      properties:
+        sid:
+          type: string
+          example: van01
+        sale_amount:
+          type: number
+          format: float
+          example: 33.50
+        payment_method:
+          type: string
+          example: Cash
+        sale_time:
+          type: string
+          example: '2025-01-08T08:12:33.001Z'
+          format: date-time
