@@ -13,7 +13,6 @@ RUN pip3 install --upgrade setuptools
 COPY . /receiver
 
 RUN chown -R nobody:nogroup /receiver
-RUN chmod -R 777 /receiver/log
 USER nobody
 
 EXPOSE 8080

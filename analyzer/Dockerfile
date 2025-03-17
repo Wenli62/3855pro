@@ -13,7 +13,6 @@ RUN pip3 install --upgrade setuptools
 COPY . /analyzer
 
 RUN chown -R nobody:nogroup /analyzer
-RUN chmod -R 777 /analyzer/log
 USER nobody
 
 EXPOSE 8200

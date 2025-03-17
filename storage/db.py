@@ -6,8 +6,8 @@ import os
 with open('/config/storage_config.prod.yml', 'r') as f:
     app_config = yaml.safe_load(f.read())
 
-user = 'root'
-password = os.getenv("MYSQL_ROOT_PASSWORD")
+user = os.getenv("MYSQL_USER")
+password = os.getenv("MYSQL_USER_PASSWORD")
 hostname = app_config['datastore']['hostname']
 port = app_config['datastore']['port']
 db = os.getenv("MYSQL_DATABASE")

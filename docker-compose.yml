@@ -1,5 +1,6 @@
 services:
   receiver:
+    restart: always
     environment:
       - SERVICE_NAME=receiver
     build:
@@ -14,6 +15,7 @@ services:
       - ./config:/config
 
   storage:
+    restart: always
     environment:
       - SERVICE_NAME=storage
     env_file: "./storage_prod.env"
@@ -38,6 +40,7 @@ services:
     ports: []
     volumes:
       - ./data/database:/var/lib/mysql
+      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$${MYSQL_ROOT_PASSWORD}"]
       interval: 10s
@@ -45,6 +48,7 @@ services:
       retries: 3
 
   processing:
+    restart: always
     environment:
       - SERVICE_NAME=processing
     build:
@@ -60,6 +64,7 @@ services:
       - ./data/processing:/data/processing
 
   analyzer:
+    restart: always
     environment:
       - SERVICE_NAME=analyzer
     build:
@@ -75,12 +80,14 @@ services:
       - ./data/analyzer:/data/analyzer
 
   zookeeper:
+    restart: always
     image: wurstmeister/zookeeper
     hostname: zookeeper
     volumes:
       - zookeeper_data:/data
 
   kafka:
+    restart: always
     image: wurstmeister/kafka
     command: >
       bash -c "

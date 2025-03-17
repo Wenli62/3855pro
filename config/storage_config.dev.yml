@@ -1,7 +1,5 @@
 version: 1
 datastore:
-  user: root
-  password: zxcvbnm
   hostname: mysql_db
   port: 3306
   db: db_transactions

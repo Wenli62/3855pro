@@ -14,7 +14,6 @@ RUN pip3 install --upgrade setuptools
 COPY . /storage
 
 RUN chown -R nobody:nogroup /storage
-RUN chmod -R 777 /storage/log
 USER nobody
 
 EXPOSE 8090

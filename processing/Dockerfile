@@ -13,7 +13,6 @@ RUN pip3 install --upgrade setuptools
 COPY . /processing
 
 RUN chown -R nobody:nogroup /processing
-RUN chmod -R 777 /processing/log
 USER nobody
 
 EXPOSE 8100
