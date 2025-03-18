@@ -1,4 +1,14 @@
 services:
+  dashboard:
+    build:
+      context: dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - processing
+      - analyzer
+      
   receiver:
     restart: always
     environment:

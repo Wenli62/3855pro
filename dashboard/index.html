@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="ACIT3855 statistics application" />
+    <script src="updateStats.js"></script>
+    <title>ACIT3855 - Shopping!</title>
+</head>
+
+<body>
+    <main id="main">
+        <div id="header">
+            <h1>Dashboard</h1>
+            <img src="shopping-bags.png" alt="Shopping!" width="100" height="100">
+        </div>
+        <h5 id="last-updated">Last update: <span id="last-updated-value">N/A</span></h5>
+        <div id="messages"></div>
+        <h2>Statistics</h2>
+        <div id="statistics">
+            <div id="processing">
+                <code id="processing-stats">
+                    <h5>Number of Online Orders</h5>
+                    <p id="num_online_in_processing"></p>
+                    <h5>Number of Store Sales</h5>
+                    <p id="num_instore_in_processing"></p>
+                    <h5>Largest Amount Order</h5>
+                    <p id="max_amount_online"></p>
+                    <h5>Largest Amount Sale</h5>
+                    <p id="max_amount_instore"></p>
+                    <h5>Last Updated</h5>
+                    <p id="last_updated"></p>
+                </code>
+            </div>
+            <div id="analyzer">
+                <code id="analyzer-stats">
+                    <h5>Number of Online Orders</h5>
+                    <p id="num_online_in_analyzer"></p>
+                    <h5>Number of Store Sales</h5>
+                    <p id="num_instore_in_analyzer"></p>
+                </code>
+            </div>
+        </div>
+        <h2>Analyzer events</h2>
+        <div id="analyzer">
+            <div>
+                <h3>Online Order</h3>
+                <code id="event-online-order">
+                    <h5>Customer ID</h5>
+                    <p id="cid"></p>
+                    <h5>Order Amount</h5>
+                    <p id="order_amount"></p>
+                    <h5>Order Time</h5>
+                    <p id="order_time"></p>
+                    <h5>Shipping Address</h5>
+                    <p id="shipping_address"></p>
+                    <h5>Trace ID</h5>
+                    <p id="online_trace_id"></p>
+                </code>
+            </div>
+            <div>
+                <h3>Store Sale</h3>
+                <code id="event-store-sale">
+                    <h5>Store ID</h5>
+                    <p id="sid"></p>
+                    <h5>Sale Amount</h5>
+                    <p id="sale_amount"></p>
+                    <h5>sale Time</h5>
+                    <p id="sale_time"></p>
+                    <h5>Payment Method</h5>
+                    <p id="payment_method"></p>
+                    <h5>Trace ID</h5>
+                    <p id="store_trace_id"></p>
+                </code>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
