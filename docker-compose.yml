@@ -1,5 +1,6 @@
 services:
   dashboard:
+    env_file: "./storage_prod.env"
     build:
       context: dashboard
       dockerfile: Dockerfile
@@ -8,7 +9,7 @@ services:
     depends_on:
       - processing
       - analyzer
-      
+
   receiver:
     restart: always
     environment:
