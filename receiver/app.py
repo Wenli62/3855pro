@@ -62,7 +62,7 @@ def store_sales(body):
     return NoContent, 201
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("WXU62-3855_api-1.0.0-resolved.yaml", strict_validation=True, validate_responses=True)
+app.add_api("3855api.yaml", strict_validation=True, validate_responses=True)
 
 
 

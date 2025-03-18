@@ -7,6 +7,8 @@ import os.path as op
 import json
 import requests
 import os
+from connexion.middleware import MiddlewarePosition
+from starlette.middleware.cors import CORSMiddleware
 
 service_name = os.getenv("SERVICE_NAME")
 
@@ -118,7 +120,15 @@ def init_scheduler():
     sched.start()
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("WXU62-3855_api-1.0.0-resolved.yaml", strict_validation=True, validate_responses=True)
+app.add_api("3855api.yaml", strict_validation=True, validate_responses=True)
+app.add_middleware(
+    CORSMiddleware,
+    position=MiddlewarePosition.BEFORE_EXCEPTION,
+    allow_origins=["8"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 if __name__ == "__main__":

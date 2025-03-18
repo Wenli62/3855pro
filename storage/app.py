@@ -126,7 +126,7 @@ def get_store_sales(start_timestamp, end_timestamp):
     return results
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("WXU62-3855_api-1.0.0-resolved.yaml", strict_validation=True, validate_responses=True)
+app.add_api("3855api.yaml", strict_validation=True, validate_responses=True)
 
 
 if __name__ == "__main__":

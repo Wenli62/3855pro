@@ -6,6 +6,8 @@ import json
 from apscheduler.schedulers.background import BackgroundScheduler
 import os.path as op
 import os
+from connexion.middleware import MiddlewarePosition
+from starlette.middleware.cors import CORSMiddleware
 
 service_name = os.getenv("SERVICE_NAME")
 
@@ -109,8 +111,15 @@ def get_stats():
         return {"message": "stats do not exist"}, 404 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("WXU62-3855_api-1.0.0-resolved.yaml", strict_validation=True, validate_responses=True)
-
+app.add_api("3855api.yaml", strict_validation=True, validate_responses=True)
+app.add_middleware(
+    CORSMiddleware,
+    position=MiddlewarePosition.BEFORE_EXCEPTION,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 if __name__ == "__main__":
     app.run(port=8200, host="0.0.0.0")
