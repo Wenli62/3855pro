@@ -1,11 +1,11 @@
 /* UPDATE THESE VALUES TO MATCH YOUR SETUP */
 
-const PROCESSING_STATS_API_URL = "{{PROCESSING_STATS_API_URL}}";
+const PROCESSING_STATS_API_URL = "http://wenli3855dup.westus2.cloudapp.azure.com:8100/stats"
 const ANALYZER_API_URL = {
-    stats: "{{ANALYZER_STATS_API_URL}}",
-    online: "{{ANALYZER_ONLINE_API_URL}}",
-    store: "{{ANALYZER_STORE_API_URL}}"
-};
+    stats: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/stats",
+    online: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/online-orders",
+    store: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/store-sales"
+}
 
 // This function fetches and updates the general statistics
 const makeReq = (url, cb) => {
