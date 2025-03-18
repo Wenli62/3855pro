@@ -124,7 +124,7 @@ app.add_api("3855api.yaml", strict_validation=True, validate_responses=True)
 app.add_middleware(
     CORSMiddleware,
     position=MiddlewarePosition.BEFORE_EXCEPTION,
-    allow_origins=["8"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
