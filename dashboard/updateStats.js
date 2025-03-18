@@ -1,10 +1,10 @@
 /* UPDATE THESE VALUES TO MATCH YOUR SETUP */
 
-const PROCESSING_STATS_API_URL = process.env.PROCESSING_STATS_API_URL;
+const PROCESSING_STATS_API_URL = "{{PROCESSING_STATS_API_URL}}";
 const ANALYZER_API_URL = {
-    stats: process.env.ANALYZER_STATS_API_URL,
-    online: process.env.ANALYZER_ONLINE_API_URL,
-    store: process.env.ANALYZER_STORE_API_URL
+    stats: "{{ANALYZER_STATS_API_URL}}",
+    online: "{{ANALYZER_ONLINE_API_URL}}",
+    store: "{{ANALYZER_STORE_API_URL}}"
 };
 
 // This function fetches and updates the general statistics
