@@ -80,7 +80,7 @@ const getStats = () => {
     
     makeReq(PROCESSING_STATS_API_URL, (result) => updateProcessing (result, "processing-stats"))
     makeReq(ANALYZER_API_URL.stats, (result) => updateAnalyzer(result, "analyzer-stats"))
-    makeReq(CONSISTENCY_API_URL.stats, (result) => updateConsistency(result, "consistency-stats"))    
+    makeReq(CONSISTENCY_API_URL, (result) => updateConsistency(result, "consistency-stats"))    
     fetchRandomEvent("online", updateOnlineOrder)
     fetchRandomEvent("store", updateStoreSale)
 }
