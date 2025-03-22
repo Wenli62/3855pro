@@ -1,4 +1,22 @@
 services:
+  consistency_check:
+    restart: always
+    environment:
+      - SERVICE_NAME=consistency_check
+    build:
+      context: consistency_check
+      dockerfile: Dockerfile
+    ports:
+      - "8300:8300"
+    depends_on:
+      - processing
+      - analyzer
+      - storage
+    volumes:
+      - ./logs:/consistency_check/log 
+      - ./config:/config
+      - ./data/consistency_check:/data/consistency_check
+
   dashboard:
     env_file: "./storage_prod.env"
     build:
@@ -39,7 +57,8 @@ services:
       mysql_db:
         condition: service_healthy
     command: sh -c "python db_manage.py drop && exec python app.py"
-    ports: []
+    ports: 
+      - "8090:8090"
     volumes:
       - ./logs:/storage/log 
       - ./config:/config

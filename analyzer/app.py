@@ -36,6 +36,47 @@ kafka_port = app_config['kafka']['port']
 kafka_topic = app_config['kafka']['topic']
 
 
+def get_kafka_event_list():
+    hostname = f"{kafka_host}:{kafka_port}"
+    client = KafkaClient(hosts=hostname)
+    topic = client.topics[str.encode(kafka_topic)]
+    consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
+    event_list_sum = []
+
+    for msg in consumer:
+        message = msg.value.decode("utf-8")
+        data = json.loads(message)
+
+        payload = data.get("payload")
+#analyzer-1  | PAYLOAD: {'sid': 'bak059', 'sale_amount': 268.7, 'payment_method': 'Cash', 'sale_time': '2024-03-07T07:25:46.485Z', 'trace_id': 1742613946436227628}
+#analyzer-1  | PAYLOAD: {'cid': 'C532', 'order_amount': 233.17, 'shipping_address': '662 hdu St, Vancouer, CA', 'order_time': '2024-08-27T08:25:51.082Z', 'trace_id': 1742613951114409329}
+        event_list_sum.append({
+            "event_id": payload.get("sid") or payload.get("cid"),
+            "trace_id": payload.get("trace_id")
+        })
+    # online_event_list = []
+    # store_event_list = []
+    # event_list_sum = []
+    # for msg in consumer:
+    #     message = msg.value.decode("utf-8")
+    #     data = json.loads(message)
+    #     if data.get("type") == "online_order":
+    #         online_event_list.append(data.get("payload"))
+    #     if data.get("type") == "store_sale":
+    #         store_event_list.append(data.get("payload"))
+    # for i in online_event_list:
+    #     event_list_sum.append({
+    #         "event_id": i.get("event_id"),
+    #         "trace_id": i.get("trace_id")
+    #     })
+    # for i in store_event_list:
+    #     event_list_sum.append({
+    #         "event_id": i.get("event_id"),
+    #         "trace_id": i.get("trace_id")
+    #     })    
+
+    return event_list_sum
+
 def get_each_type_msg(event_type):
     hostname = f"{kafka_host}:{kafka_port}"
     client = KafkaClient(hosts=hostname)

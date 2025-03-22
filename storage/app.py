@@ -6,7 +6,7 @@ from db import make_session
 from models import onlineOrderReport, storeSalesReport
 import yaml
 import logging, logging.config
-from sqlalchemy import select
+from sqlalchemy import select, func
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 import json
@@ -29,6 +29,40 @@ logger = logging.getLogger('basicLogger')
 kafka_host = app_config['kafka']['hostname']
 kafka_port = app_config['kafka']['port']
 kafka_topic = app_config['kafka']['topic']
+
+def get_mysql_event_list():
+    # logger.info("GETTING_EVENT_LIST")
+    session = make_session()
+    online_stmt = select(onlineOrderReport.cid, onlineOrderReport.trace_id)
+    store_stmt = select(storeSalesReport.sid, storeSalesReport.trace_id)
+    online_results = [
+        {"cid": cid, "trace_id": trace_id} for cid, trace_id in session.execute(online_stmt).all()
+    ]
+
+    store_results = [
+        {"sid": sid, "trace_id": trace_id} for sid, trace_id in session.execute(store_stmt).all()
+    ]
+    session.close()
+    
+    online_event_list = [{"event_id": row["cid"], "trace_id": row["trace_id"]} for row in online_results]
+    store_event_list = [{"event_id": row["sid"], "trace_id": row["trace_id"]} for row in store_results]
+
+    event_list_all = online_event_list + store_event_list
+    return event_list_all 
+
+def get_count():
+    session = make_session()
+    online_state = select(func.count()).select_from(onlineOrderReport)
+    store_state = select(func.count()).select_from(storeSalesReport)
+
+    online_count = session.execute(online_state).scalar()
+    store_count = session.execute(store_state).scalar()
+
+    session.close()
+
+    logger.info("Found %d online orders and %d store sales ", online_count, store_count)
+    return {"online_order_count": online_count, "store_sale_count": store_count}
+
 
 def process_messages():
     """ Process event messages """

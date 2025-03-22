@@ -1,0 +1,16 @@
+version: 1
+datastore:
+  filename: /data/<service_name>/<service_name>.json
+eventstores:
+  count_events_in_db:
+    url: http://storage:8090/count
+  list_events_in_db:
+    url: http://storage:8090/list
+
+  counts_in_processing:
+    url: http://processing:8100/stats
+
+  counts_in_analyzer:
+    url: http://analyzer:8200/stats
+  list_in_analyzer:
+    url: http://analyzer:8200/list

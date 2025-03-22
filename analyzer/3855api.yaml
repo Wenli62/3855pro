@@ -4,6 +4,19 @@ info:
   title: 3855_api
   description: ''
 paths:
+  /list:
+    get:
+      summary: Get list of events and IDs
+      operationId: app.get_kafka_event_list
+      responses:
+        '200':
+          description: Successfully returned the list of events and IDs from Kafka
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/list'
+        '400':
+          description: Bad Request   
   /online-orders:
     get:
       summary: Get
@@ -93,6 +106,19 @@ paths:
 
 components:
   schemas:
+    list:
+      type: array
+      required:
+        - event_id
+        - trace_id
+      properties:
+        event_id:
+          type: string
+          example: C1234
+        trace_id:
+          type: number
+          format: integer
+          example: 1674235285973157000
     online:
       type: object
       required:
