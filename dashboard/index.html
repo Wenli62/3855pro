@@ -75,9 +75,42 @@
                     <h5>Trace ID</h5>
                     <p id="store_trace_id"></p>
                 </code>
-            </div>
+            </div>  
+        </div>
+        <h2>Consistency Check</h2>
+        <div id="consistency">
+            <form onsubmit="event.preventDefault(); submitUpdate();">
+                <button type="submit">Update Consistency Check</button>
+                <p id="update_message"></p>
+                <h5>Counts</h5>
+                <p id="counts"></p>
+                <h5>Last Update</h5>
+                <p id="last_updated"></p>
+                <h5>Missing in Database</h5>
+                <p id="missing_in_db"></p>
+                <h5>Missing in Queue</h5>
+                <p id="missing_in_queue"></p>
+            </form>
         </div>
     </main>
 </body>
+<script>
+    async function submitUpdate() {
+        try {
+            const response = await fetch('http://wenli3855dup.westus2.cloudapp.azure.com:8300/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
 
+            if (response.ok) {
+                document.getElementById('update_message').textContent = "Update completed!"
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Network error: Unable to reach the server');
+        }
+    }
+</script>
 </html>

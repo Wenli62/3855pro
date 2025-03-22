@@ -6,6 +6,7 @@ const ANALYZER_API_URL = {
     online: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/online-orders",
     store: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/store-sales"
 }
+const CONSISTENCY_API_URL = "http://wenli3855dup.westus2.cloudapp.azure.com:8300/checks"
 
 // This function fetches and updates the general statistics
 const makeReq = (url, cb) => {
@@ -65,6 +66,13 @@ const updateStoreSale = (result) => {
     document.getElementById("store_trace_id").innerText = result["trace_id"]
 }
 
+const updateConsistency = (result) => {
+    document.getElementById("counts").innerText = result["counts"]
+    document.getElementById("last_updated").innerText = result["last_updated"]
+    document.getElementById("missing_in_db").innerText = result["missing_in_db"]
+    document.getElementById("missing_in_queue").innerText = result["missing_in_queue"]
+
+}
 const getLocaleDateStr = () => (new Date()).toLocaleString()
 
 const getStats = () => {
@@ -72,6 +80,7 @@ const getStats = () => {
     
     makeReq(PROCESSING_STATS_API_URL, (result) => updateProcessing (result, "processing-stats"))
     makeReq(ANALYZER_API_URL.stats, (result) => updateAnalyzer(result, "analyzer-stats"))
+    makeReq(CONSISTENCY_API_URL.stats, (result) => updateConsistency(result, "consistency-stats"))    
     fetchRandomEvent("online", updateOnlineOrder)
     fetchRandomEvent("store", updateStoreSale)
 }
