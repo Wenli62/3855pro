@@ -6,7 +6,7 @@ const ANALYZER_API_URL = {
     online: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/online-orders",
     store: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/store-sales"
 }
-const CONSISTENCY_API_URL = "http://wenli3855dup.westus2.cloudapp.azure.com:8300/checks"
+const CONSISTENCY_API_URL = "http://localhost:8300/checks"
 
 // This function fetches and updates the general statistics
 const makeReq = (url, cb) => {
@@ -67,10 +67,10 @@ const updateStoreSale = (result) => {
 }
 
 const updateConsistency = (result) => {
-    document.getElementById("counts").innerText = JSON.stringify(result["counts"], null, 2)
-    document.getElementById("last_updated").innerText = result["last_updated"]
-    document.getElementById("missing_in_db").innerText = JSON.stringify(result["missing_in_db"], null, 2)
-    document.getElementById("missing_in_queue").innerText = JSON.stringify(result["missing_in_queue"], null, 2)
+    document.getElementById("counts").innerText = JSON.stringify(result["counts"])
+    document.getElementById("last_updated").innerText = JSON.stringify(result["last_updated"])
+    document.getElementById("missing_in_db").innerText = JSON.stringify(result["missing_in_db"])
+    document.getElementById("missing_in_queue").innerText = JSON.stringify(result["missing_in_queue"])
 }
 const getLocaleDateStr = () => (new Date()).toLocaleString()
 
