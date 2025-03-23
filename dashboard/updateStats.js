@@ -1,12 +1,12 @@
 /* UPDATE THESE VALUES TO MATCH YOUR SETUP */
 
-const PROCESSING_STATS_API_URL = "http://wenli3855dup.westus2.cloudapp.azure.com:8100/stats"
+const PROCESSING_STATS_API_URL = "http://wenli3855dup.westus2.cloudapp.azure.com:8100/stats";
 const ANALYZER_API_URL = {
     stats: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/stats",
     online: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/online-orders",
     store: "http://wenli3855dup.westus2.cloudapp.azure.com:8200/store-sales"
 }
-const CONSISTENCY_API_URL = "http://wenli3855dup.westus2.cloudapp.azure.com:8300/checks"
+const CONSISTENCY_API_URL = "http://wenli3855dup.westus2.cloudapp.azure.com:8300/checks";
 
 // This function fetches and updates the general statistics
 const makeReq = (url, cb) => {
