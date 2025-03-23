@@ -23,7 +23,7 @@ services:
       context: dashboard
       dockerfile: Dockerfile
     ports:
-      - "8400:8400"
+      - "80:80"
     depends_on:
       - processing
       - analyzer
