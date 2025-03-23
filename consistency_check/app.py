@@ -1,6 +1,5 @@
 import connexion
-from connexion import NoContent
-from datetime import datetime, timezone, date as dt
+from datetime import datetime, timezone
 import time
 import yaml
 import logging, logging.config
