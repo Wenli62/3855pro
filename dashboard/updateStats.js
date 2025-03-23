@@ -76,19 +76,30 @@ const getLocaleDateStr = () => (new Date()).toLocaleString()
 
 const getStats = () => {
     document.getElementById("last-updated-value").innerText = getLocaleDateStr()
-    
     makeReq(PROCESSING_STATS_API_URL, (result) => updateProcessing (result, "processing-stats"))
-    makeReq(ANALYZER_API_URL.stats, (result) => updateAnalyzer(result, "analyzer-stats"))
-    makeReq(CONSISTENCY_API_URL, (result) => {
-        console.log("Consistency API Result:", result);
-        console.log("Counts as JSON:", JSON.stringify(result["counts"]));
-        console.log("CONSISTENCY_last_updated:", JSON.stringify(result["last_updated"]));
-        console.log("MISSING_in_db:", JSON.stringify(result["missing_in_db"]));
-        console.log("MISSING_in_queue:", JSON.stringify(result["missing_in_queue"]));        
-        updateConsistency(result, "consistency-stats");
-    });   
+    makeReq(ANALYZER_API_URL.stats, (result) => updateAnalyzer(result, "analyzer-stats"))    
     fetchRandomEvent("online", updateOnlineOrder)
     fetchRandomEvent("store", updateStoreSale)
+}
+
+async function submitUpdate() {
+    try {
+        const response = await fetch('http://wenli3855dup.westus2.cloudapp.azure.com:8300/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (response.ok) {
+            makeReq(CONSISTENCY_API_URL, (result) => {
+                updateConsistency(result); 
+                document.getElementById('update_message').textContent = "Update completed!";
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
 const updateErrorMessages = (message) => {
