@@ -67,11 +67,10 @@ const updateStoreSale = (result) => {
 }
 
 const updateConsistency = (result) => {
-    document.getElementById("counts").innerText = result["counts"]
+    document.getElementById("counts").innerText = JSON.stringify(result["counts"], null, 2)
     document.getElementById("last_updated").innerText = result["last_updated"]
-    document.getElementById("missing_in_db").innerText = result["missing_in_db"]
-    document.getElementById("missing_in_queue").innerText = result["missing_in_queue"]
-
+    document.getElementById("missing_in_db").innerText = JSON.stringify(result["missing_in_db"], null, 2)
+    document.getElementById("missing_in_queue").innerText = JSON.stringify(result["missing_in_queue"], null, 2)
 }
 const getLocaleDateStr = () => (new Date()).toLocaleString()
 
