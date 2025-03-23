@@ -68,7 +68,7 @@ const updateStoreSale = (result) => {
 
 const updateConsistency = (result) => {
     document.getElementById("counts").innerText = JSON.stringify(result["counts"])
-    document.getElementById("last_updated").innerText = JSON.stringify(result["last_updated"])
+    document.getElementById("consistency_last_updated").innerText = JSON.stringify(result["last_updated"])
     document.getElementById("missing_in_db").innerText = JSON.stringify(result["missing_in_db"])
     document.getElementById("missing_in_queue").innerText = JSON.stringify(result["missing_in_queue"])
 }
