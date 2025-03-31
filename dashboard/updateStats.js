@@ -1,12 +1,12 @@
 /* UPDATE THESE VALUES TO MATCH YOUR SETUP */
 
-const PROCESSING_STATS_API_URL = "http://processing/stats";
+const PROCESSING_STATS_API_URL = "/processing/stats";
 const ANALYZER_API_URL = {
-    stats: "http://analyzer/stats",
-    online: "http://analyzer/online-orders",
-    store: "http://analyzer/store-sales"
+    stats: "/analyzer/stats",
+    online: "/analyzer/online-orders",
+    store: "/analyzer/store-sales"
 };
-const CONSISTENCY_API_URL = "http://consistency_check/checks";
+const CONSISTENCY_API_URL = "/consistency_check/checks";
 
 // This function fetches and updates the general statistics
 const makeReq = (url, cb) => {
@@ -84,7 +84,7 @@ const getStats = () => {
 
 async function submitUpdate() {
     try {
-        const response = await fetch('http://consistency_check/update', {
+        const response = await fetch('/consistency_check/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
