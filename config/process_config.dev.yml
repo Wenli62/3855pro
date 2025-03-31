@@ -5,6 +5,6 @@ scheduler:
   interval: 5
 eventstores:
   online_orders:
-    url: http://dashboard/storage/online-orders
+    url: http://storage:8090/storage/online-orders
   store_sales:
-    url: http://dashboard/storage/store-sales
+    url: http://storage:8090/storage/store-sales

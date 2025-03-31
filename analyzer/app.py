@@ -46,13 +46,14 @@ def get_kafka_event_list():
     for msg in consumer:
         message = msg.value.decode("utf-8")
         data = json.loads(message)
-
+        event_type = data.get("type")
         payload = data.get("payload")
 #analyzer-1  | PAYLOAD: {'sid': 'bak059', 'sale_amount': 268.7, 'payment_method': 'Cash', 'sale_time': '2024-03-07T07:25:46.485Z', 'trace_id': 1742613946436227628}
 #analyzer-1  | PAYLOAD: {'cid': 'C532', 'order_amount': 233.17, 'shipping_address': '662 hdu St, Vancouer, CA', 'order_time': '2024-08-27T08:25:51.082Z', 'trace_id': 1742613951114409329}
         event_list_sum.append({
             "event_id": payload.get("sid") or payload.get("cid"),
-            "trace_id": payload.get("trace_id")
+            "trace_id": payload.get("trace_id"),
+            "type": event_type
         })
     # online_event_list = []
     # store_event_list = []

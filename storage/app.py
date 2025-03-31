@@ -36,16 +36,16 @@ def get_mysql_event_list():
     online_stmt = select(onlineOrderReport.cid, onlineOrderReport.trace_id)
     store_stmt = select(storeSalesReport.sid, storeSalesReport.trace_id)
     online_results = [
-        {"cid": cid, "trace_id": trace_id} for cid, trace_id in session.execute(online_stmt).all()
+        {"cid": cid, "trace_id": trace_id, "type": "online_orders"} for cid, trace_id in session.execute(online_stmt).all()
     ]
 
     store_results = [
-        {"sid": sid, "trace_id": trace_id} for sid, trace_id in session.execute(store_stmt).all()
+        {"sid": sid, "trace_id": trace_id, "type": "store_sales"} for sid, trace_id in session.execute(store_stmt).all()
     ]
     session.close()
     
-    online_event_list = [{"event_id": row["cid"], "trace_id": row["trace_id"]} for row in online_results]
-    store_event_list = [{"event_id": row["sid"], "trace_id": row["trace_id"]} for row in store_results]
+    online_event_list = [{"event_id": row["cid"], "trace_id": row["trace_id"], "type": row["type"]} for row in online_results]
+    store_event_list = [{"event_id": row["sid"], "trace_id": row["trace_id"], "type": row["type"]} for row in store_results]
 
     event_list_all = online_event_list + store_event_list
     return event_list_all 

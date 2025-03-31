@@ -3,14 +3,14 @@ datastore:
   filename: /data/<service_name>/<service_name>.json
 eventstores:
   count_events_in_db:
-    url: http://storage:8090/count
+    url: http://storage:8090/storage/count
   list_events_in_db:
-    url: http://storage:8090/list
+    url: http://storage:8090/storage/list
 
   counts_in_processing:
-    url: http://processing:8100/stats
+    url: http://processing:8100/processing/stats
 
   counts_in_analyzer:
-    url: http://analyzer:8200/stats
+    url: http://analyzer:8200/analyzer/stats
   list_in_analyzer:
-    url: http://analyzer:8200/list
+    url: http://analyzer:8200/analyzer/list

@@ -89,6 +89,9 @@ components:
                 type: string
               trace_id:
                 type: integer
+              type:
+                type: string
+                example: online_order    
         missing_in_queue:
           type: array
           items:
@@ -98,4 +101,7 @@ components:
                 type: string
               trace_id:
                 type: integer
+              type:
+                type: string
+                example: online_order  
 

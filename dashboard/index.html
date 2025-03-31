@@ -1,97 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="ACIT3855 statistics application" />
-    <script src="updateStats.js"></script>
-    <title>ACIT3855 - Shopping!</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="ACIT3855 statistics application">
+  <script src="updateStats.js"></script>
+  <title>ACIT3855 - Shopping!</title>
 </head>
-
 <body>
-    <main id="main">
-        <div id="header">
-            <h1>Dashboard</h1>
-            <img src="shopping-bags.png" alt="Shopping!" width="100" height="100">
-        </div>
-        <h5 id="last-updated">Last update: <span id="last-updated-value">N/A</span></h5>
-        <div id="messages"></div>
-        <h2>Statistics</h2>
-        <div id="statistics">
-            <div id="processing">
-                <code id="processing-stats">
-                    <h5>Number of Online Orders</h5>
-                    <p id="num_online_in_processing"></p>
-                    <h5>Number of Store Sales</h5>
-                    <p id="num_instore_in_processing"></p>
-                    <h5>Largest Amount Order</h5>
-                    <p id="max_amount_online"></p>
-                    <h5>Largest Amount Sale</h5>
-                    <p id="max_amount_instore"></p>
-                    <h5>Last Updated</h5>
-                    <p id="last_updated"></p>
-                </code>
-            </div>
-            <div id="analyzer">
-                <code id="analyzer-stats">
-                    <h5>Number of Online Orders</h5>
-                    <p id="num_online_in_analyzer"></p>
-                    <h5>Number of Store Sales</h5>
-                    <p id="num_instore_in_analyzer"></p>
-                </code>
-            </div>
-        </div>
-        <h2>Analyzer events</h2>
-        <div id="analyzer">
-            <div>
-                <h3>Online Order</h3>
-                <code id="event-online-order">
-                    <h5>Customer ID</h5>
-                    <p id="cid"></p>
-                    <h5>Order Amount</h5>
-                    <p id="order_amount"></p>
-                    <h5>Order Time</h5>
-                    <p id="order_time"></p>
-                    <h5>Shipping Address</h5>
-                    <p id="shipping_address"></p>
-                    <h5>Trace ID</h5>
-                    <p id="online_trace_id"></p>
-                </code>
-            </div>
-            <div>
-                <h3>Store Sale</h3>
-                <code id="event-store-sale">
-                    <h5>Store ID</h5>
-                    <p id="sid"></p>
-                    <h5>Sale Amount</h5>
-                    <p id="sale_amount"></p>
-                    <h5>sale Time</h5>
-                    <p id="sale_time"></p>
-                    <h5>Payment Method</h5>
-                    <p id="payment_method"></p>
-                    <h5>Trace ID</h5>
-                    <p id="store_trace_id"></p>
-                </code>
-            </div>  
-        </div>
-        <h2>Consistency Check</h2>
-        <div id="consistency">
-            <form onsubmit="event.preventDefault(); submitUpdate();">
-                <button type="submit">Update Consistency Check</button>
-                <p id="update_message"></p>
-                <h5>Counts</h5>
-                <p id="counts"></p>
-                <h5>Last Update</h5>
-                <p id="consistency_last_updated"></p>
-                <h5>Missing in Database</h5>
-                <p id="missing_in_db"></p>
-                <h5>Missing in Queue</h5>
-                <p id="missing_in_queue"></p>
-            </form>
-        </div>
-    </main>
+  <main id="main">
+    <div id="header">
+    <h1>Dashboard</h1><img src="shopping-bags.png" alt="Shopping!" width="100" height="100"></div>
+    <h5 id="last-updated">Last update: <span id="last-updated-value">N/A</span></h5>
+    <div id="messages"></div>
+    <h2>Statistics</h2>
+    <div id="statistics">
+      <div id="processing">
+        <code id="processing-stats"></code>
+        <h5><code id="processing-stats">Number of Online Orders</code></h5>
+        <p id="num_online_in_processing"><code id="processing-stats"></code></p>
+        <h5><code id="processing-stats">Number of Store Sales</code></h5>
+        <p id="num_instore_in_processing"><code id="processing-stats"></code></p>
+        <h5><code id="processing-stats">Largest Amount Order</code></h5>
+        <p id="max_amount_online"><code id="processing-stats"></code></p>
+        <h5><code id="processing-stats">Largest Amount Sale</code></h5>
+        <p id="max_amount_instore"><code id="processing-stats"></code></p>
+        <h5><code id="processing-stats">Last Updated</code></h5>
+        <p id="last_updated"><code id="processing-stats"></code></p>
+      </div>
+      <div id="analyzer">
+        <code id="analyzer-stats"></code>
+        <h5><code id="analyzer-stats">Number of Online Orders</code></h5>
+        <p id="num_online_in_analyzer"><code id="analyzer-stats"></code></p>
+        <h5><code id="analyzer-stats">Number of Store Sales</code></h5>
+        <p id="num_instore_in_analyzer"><code id="analyzer-stats"></code></p>
+      </div>
+    </div>
+    <h2>Analyzer events</h2>
+    <div id="analyzer">
+      <div>
+        <h3>Online Order</h3><code id="event-online-order"></code>
+        <h5><code id="event-online-order">Customer ID</code></h5>
+        <p id="cid"><code id="event-online-order"></code></p>
+        <h5><code id="event-online-order">Order Amount</code></h5>
+        <p id="order_amount"><code id="event-online-order"></code></p>
+        <h5><code id="event-online-order">Order Time</code></h5>
+        <p id="order_time"><code id="event-online-order"></code></p>
+        <h5><code id="event-online-order">Shipping Address</code></h5>
+        <p id="shipping_address"><code id="event-online-order"></code></p>
+        <h5><code id="event-online-order">Trace ID</code></h5>
+        <p id="online_trace_id"><code id="event-online-order"></code></p>
+      </div>
+      <div>
+        <h3>Store Sale</h3><code id="event-store-sale"></code>
+        <h5><code id="event-store-sale">Store ID</code></h5>
+        <p id="sid"><code id="event-store-sale"></code></p>
+        <h5><code id="event-store-sale">Sale Amount</code></h5>
+        <p id="sale_amount"><code id="event-store-sale"></code></p>
+        <h5><code id="event-store-sale">sale Time</code></h5>
+        <p id="sale_time"><code id="event-store-sale"></code></p>
+        <h5><code id="event-store-sale">Payment Method</code></h5>
+        <p id="payment_method"><code id="event-store-sale"></code></p>
+        <h5><code id="event-store-sale">Trace ID</code></h5>
+        <p id="store_trace_id"><code id="event-store-sale"></code></p>
+      </div>
+    </div>
+    <h2>Consistency Check</h2>
+    <div id="consistency">
+      <form onsubmit="event.preventDefault(); submitUpdate();">
+        <button type="submit">Update Consistency Check</button>
+        <p id="update_message"></p>
+        <h5>Counts</h5>
+        <p id="counts"></p>
+        <h5>Last Update</h5>
+        <p id="consistency_last_updated"></p>
+        <h5>Missing in Database</h5>
+        <p id="missing_in_db"></p>
+        <h5>Missing in Queue</h5>
+        <p id="missing_in_queue"></p>
+      </form>
+    </div>
+  </main>
 </body>
 </html>

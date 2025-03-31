@@ -100,6 +100,7 @@ components:
       required:
         - event_id
         - trace_id
+        - type
       properties:
         event_id:
           type: string
@@ -108,6 +109,9 @@ components:
           type: number
           format: integer
           example: 1674235285973157000
+        type:
+          type: string
+          example: online_order
 
     count:
       type: object
