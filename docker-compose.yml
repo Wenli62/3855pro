@@ -31,6 +31,8 @@ services:
 
   receiver:
     restart: always
+    deploy:
+      replicas: 3
     environment:
       - SERVICE_NAME=receiver
       - CORS_ALLOW_ALL=no
