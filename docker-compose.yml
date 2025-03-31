@@ -3,6 +3,7 @@ services:
     restart: always
     environment:
       - SERVICE_NAME=consistency_check
+      - CORS_ALLOW_ALL=no
     build:
       context: consistency_check
       dockerfile: Dockerfile
@@ -32,6 +33,7 @@ services:
     restart: always
     environment:
       - SERVICE_NAME=receiver
+      - CORS_ALLOW_ALL=no
     build:
       context: receiver
       dockerfile: Dockerfile
@@ -47,6 +49,7 @@ services:
     restart: always
     environment:
       - SERVICE_NAME=storage
+      - CORS_ALLOW_ALL=no
     env_file: "./storage_prod.env"
     build:
       context: storage
@@ -81,6 +84,7 @@ services:
     restart: always
     environment:
       - SERVICE_NAME=processing
+      - CORS_ALLOW_ALL=no
     build:
       context: processing
       dockerfile: Dockerfile
@@ -97,6 +101,7 @@ services:
     restart: always
     environment:
       - SERVICE_NAME=analyzer
+      - CORS_ALLOW_ALL=no
     build:
       context: analyzer
       dockerfile: Dockerfile

@@ -12,6 +12,8 @@ from pykafka.common import OffsetType
 import json
 from threading import Thread
 import os
+from connexion.middleware import MiddlewarePosition
+from starlette.middleware.cors import CORSMiddleware
 
 service_name = os.getenv("SERVICE_NAME")
 
@@ -161,7 +163,15 @@ def get_store_sales(start_timestamp, end_timestamp):
 
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("3855api.yaml", base_path="/storage", strict_validation=True, validate_responses=True)
-
+if "CORS_ALLOW_ALL" in os.environ and os.environ["CORS_ALLOW_ALL"] == "yes":
+    app.add_middleware(
+        CORSMiddleware,
+        position=MiddlewarePosition.BEFORE_EXCEPTION,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 if __name__ == "__main__":
     setup_kafka_thread()
