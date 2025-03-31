@@ -59,7 +59,8 @@ services:
         condition: service_healthy
       mysql_db:
         condition: service_healthy
-    command: sh -c "exec python app.py"
+    # command: sh -c "python db_manage.py drop && exec python app.py"
+    command: sh -c "python db_manage.py && exec python app.py"
     ports: [] 
       #- "8090:8090"
     volumes:
