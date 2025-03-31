@@ -6,8 +6,8 @@ services:
     build:
       context: consistency_check
       dockerfile: Dockerfile
-    ports:
-      - "8300:8300"
+    ports: []
+      # - "8300:8300"
     depends_on:
       - processing
       - analyzer
@@ -37,8 +37,8 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - kafka
-    ports:
-      - "8080:8080"
+    ports: []
+      #- "8080:8080"
     volumes:
       - ./logs:/receiver/log 
       - ./config:/config
@@ -56,9 +56,9 @@ services:
         condition: service_healthy
       mysql_db:
         condition: service_healthy
-    command: sh -c "python db_manage.py drop && exec python app.py"
-    ports: 
-      - "8090:8090"
+    command: sh -c "exec python app.py"
+    ports: [] 
+      #- "8090:8090"
     volumes:
       - ./logs:/storage/log 
       - ./config:/config
@@ -86,8 +86,8 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - storage
-    ports:
-      - "8100:8100"
+    ports: []
+      #- "8100:8100"
     volumes:
       - ./logs:/processing/log 
       - ./config:/config
@@ -102,8 +102,8 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - kafka
-    ports:
-      - "8200:8200"
+    ports: []
+      #- "8200:8200"
     volumes:
       - ./logs:/analyzer/log 
       - ./config:/config

@@ -152,7 +152,7 @@ def get_stats():
         return {"message": "stats do not exist"}, 404 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("3855api.yaml", strict_validation=True, validate_responses=True)
+app.add_api("3855api.yaml", base_path="/analyzer", strict_validation=True, validate_responses=True)
 app.add_middleware(
     CORSMiddleware,
     position=MiddlewarePosition.BEFORE_EXCEPTION,
