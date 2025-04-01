@@ -66,9 +66,10 @@ def run_consistency_checks() -> dict:
     """
 
     logger.info("Start Consistency Check")
+    start_time = time.time()
+    
     eventstore_data = query_endpoints()
 
-    start_time = time.time()
     trace_ids_in_anal = {item["trace_id"] for item in eventstore_data['lst_in_anal']}
     trace_ids_in_db = {item["trace_id"] for item in eventstore_data['lst_in_db']}
     not_in_db = [item for item in eventstore_data['lst_in_anal'] if item["trace_id"] not in trace_ids_in_db]
