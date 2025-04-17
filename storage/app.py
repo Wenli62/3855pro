@@ -86,6 +86,14 @@ def process_messages():
         msg_str = msg.value.decode('utf-8')
         msg = json.loads(msg_str)
         logger.info("Message: %s" % msg)
+        #Message: {
+        #          'type': 'online_orders', 
+        #          'datetime': '2025-04-16T06:13:01', 
+        #          'payload': {'cid': 'C12345', 'order_amount': 100.5, 
+        #                      'shipping_address': '123 ABC St, Vancouer, CA', 
+        #                      'order_time': '2025-01-08T09:12:33.001Z', 
+        #                      'trace_id': 1744783981537898263}
+        #          }
         payload = msg["payload"]
         
         if msg["type"] == "store_sales": # Change this to your event type

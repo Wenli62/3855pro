@@ -105,7 +105,7 @@ def run_consistency_checks() -> dict:
 
 def write_to_json(data):
     """Write the results to the JSON file."""
-    
+
     logger.info("Write to json")
     with open(EVENT_FILE, "w") as f:
         json.dump(data, f, indent=4)

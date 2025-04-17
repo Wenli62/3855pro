@@ -1,6 +1,5 @@
 import connexion
 from connexion import NoContent
-import httpx
 import time
 import yaml
 import logging, logging.config

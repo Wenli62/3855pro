@@ -82,6 +82,26 @@
         <p id="missing_in_queue"></p>
       </form>
     </div>
+    <h2>New Service Monitor</h2>
+    <div id="new_service_monitor">
+      <form onsubmit="event.preventDefault(); submitNewServiceUpdate();">
+        <button type="submit">Update New Service</button>
+        <p id="new_service_update_message"></p>
+        
+        <h5>Status</h5>
+        <p id="new_service_status"></p>
+
+        <h5>Last Checked</h5>
+        <p id="new_service_last_checked"></p>
+
+        <h5>Errors Found</h5>
+        <p id="new_service_errors"></p>
+
+        <h5>Pending Items</h5>
+        <p id="new_service_pending"></p>
+      </form>
+    </div>
+
   </main>
 </body>
 </html>

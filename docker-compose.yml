@@ -30,7 +30,6 @@ services:
       - analyzer
 
   receiver:
-    restart: always
     deploy:
       replicas: 3
     environment:
@@ -40,15 +39,13 @@ services:
       context: receiver
       dockerfile: Dockerfile
     depends_on:
-      - kafka
-    ports: []
-      #- "8080:8080"
+      kafka:
+        condition: service_healthy
     volumes:
       - ./logs:/receiver/log 
       - ./config:/config
 
   storage:
-    restart: always
     environment:
       - SERVICE_NAME=storage
       - CORS_ALLOW_ALL=no
@@ -63,8 +60,6 @@ services:
         condition: service_healthy
     # command: sh -c "python db_manage.py drop && exec python app.py"
     command: sh -c "python db_manage.py && exec python app.py"
-    ports: [] 
-      #- "8090:8090"
     volumes:
       - ./logs:/storage/log 
       - ./config:/config
@@ -73,7 +68,6 @@ services:
     image: mysql
     restart: always
     env_file: "./storage_prod.env"
-    ports: []
     volumes:
       - ./data/database:/var/lib/mysql
       - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -84,7 +78,6 @@ services:
       retries: 3
 
   processing:
-    restart: always
     environment:
       - SERVICE_NAME=processing
       - CORS_ALLOW_ALL=no
@@ -93,15 +86,12 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - storage
-    ports: []
-      #- "8100:8100"
     volumes:
       - ./logs:/processing/log 
       - ./config:/config
       - ./data/processing:/data/processing
 
   analyzer:
-    restart: always
     environment:
       - SERVICE_NAME=analyzer
       - CORS_ALLOW_ALL=no
@@ -109,30 +99,22 @@ services:
       context: analyzer
       dockerfile: Dockerfile
     depends_on:
-      - kafka
-    ports: []
-      #- "8200:8200"
+      kafka:
+        condition: service_healthy
     volumes:
       - ./logs:/analyzer/log 
       - ./config:/config
       - ./data/analyzer:/data/analyzer
 
   zookeeper:
-    restart: always
     image: wurstmeister/zookeeper
     hostname: zookeeper
     volumes:
       - zookeeper_data:/data
 
   kafka:
-    restart: always
     image: wurstmeister/kafka
-    command: >
-      bash -c "
-        rm -f /kafka/kafka-logs-kafka/meta.properties && 
-        start-kafka.sh
-      "
-    ports: []
+    command: bash -c "rm -f /kafka/kafka-logs-kafka/meta.properties && start-kafka.sh"
     hostname: kafka
     environment:
       KAFKA_CREATE_TOPICS: "events:1:1"  # topic:partition:replicas

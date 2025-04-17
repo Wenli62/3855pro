@@ -36,6 +36,44 @@ kafka_port = app_config['kafka']['port']
 kafka_topic = app_config['kafka']['topic']
 
 
+# consumer = KafkaWrapper_consumer(hostname, 
+#                                      kafka_topic, 
+#                                      reset_offset_on_start=True, 
+#                                      consumer_timeout_ms=1000
+#                                      )
+
+# def get_messages():
+#     for msg in consumer.messages():
+#         message = msg.value.decode("utf-8")
+#         yield json.loads(message)
+
+# def get_kafka_event_list():
+    
+    
+#     event_list_sum = []
+
+#     for data in get_messages():
+#         event_type = data.get("type")
+#         payload = data.get("payload")
+
+#         event_list_sum.append({
+#             "event_id": payload.get("sid") or payload.get("cid"),
+#             "trace_id": payload.get("trace_id"),
+#             "type": event_type
+#         })
+
+#     return event_list_sum
+
+# def get_each_type_msg(event_type):
+
+#     filtered_messages = []
+
+#     for data in get_messages():
+#         if data.get("type") == event_type:
+#             filtered_messages.append(data)
+            
+#     return filtered_messages
+
 def get_kafka_event_list():
     hostname = f"{kafka_host}:{kafka_port}"
     client = KafkaClient(hosts=hostname)
@@ -46,6 +84,17 @@ def get_kafka_event_list():
     for msg in consumer:
         message = msg.value.decode("utf-8")
         data = json.loads(message)
+        logger.info(f"Data from Kafka: {data}")
+        # Data from Kafka: {
+        #                   'type': 'online_orders', 
+        #                   'datetime': '2025-04-16T06:13:01', 
+        #                   'payload': 
+        #                           {'cid': 'C12345', 
+        #                            'order_amount': 100.5, 
+        #                            'shipping_address': '123 ABC St, Vancouer, CA', 
+        #                            'order_time': '2025-01-08T09:12:33.001Z', 
+        #                            'trace_id': 1744783981537898263}
+        #                    }
         event_type = data.get("type")
         payload = data.get("payload")
 #analyzer-1  | PAYLOAD: {'sid': 'bak059', 'sale_amount': 268.7, 'payment_method': 'Cash', 'sale_time': '2024-03-07T07:25:46.485Z', 'trace_id': 1742613946436227628}
@@ -154,15 +203,14 @@ def get_stats():
 
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("3855api.yaml", base_path="/analyzer", strict_validation=True, validate_responses=True)
-if "CORS_ALLOW_ALL" in os.environ and os.environ["CORS_ALLOW_ALL"] == "yes":
-    app.add_middleware(
-        CORSMiddleware,
-        position=MiddlewarePosition.BEFORE_EXCEPTION,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+app.add_middleware(
+    CORSMiddleware,
+    position=MiddlewarePosition.BEFORE_EXCEPTION,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 if __name__ == "__main__":
     app.run(port=8200, host="0.0.0.0")
